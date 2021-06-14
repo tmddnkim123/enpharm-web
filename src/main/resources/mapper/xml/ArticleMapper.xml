@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.enpharm.web.dao.ArticleDAO">
+
+    <sql id="selectAllArticle">
+        select `article`.`idx`,
+               `category_idx`,
+               `user`.`idx` as writer_idx,
+               `category`.`name` as category_name,
+               `title`,
+               `user`.`name` as writer_name,
+               `contents`,
+               `file_path`,
+               `original_file_name`,
+               `image`,
+               `article`.`created_time`
+        from article
+                 join user on article.writer_idx=user.idx
+                 join category on article.category_idx=category.idx
+    </sql>
+
+    <select id="selectArticleList" parameterType="long" resultType="ArticleDTO">
+        <include refid="selectAllArticle"></include>
+        where `category_idx`=#{categoryIdx}
+    </select>
+
+    <insert id="insertArticle" parameterType="ArticleDTO">
+        insert into article(`category_idx`,
+                            `writer_idx`,
+                            `title`,
+                            `contents`,
+                            `file_path`,
+                            `original_file_name`,
+                            `image`,
+                            `created_time`)
+                            values (#{categoryIdx},
+                                    #{writerIdx},
+                                    #{title},
+                                    #{contents},
+                                    #{filePath},
+                                    #{originalFileName},
+                                    #{isImage},
+                                    now())
+    </insert>
+
+    <select id="selectArticleDetail" parameterType="long" resultType="ArticleDTO">
+        <include refid="selectAllArticle"></include>
+        where `article`.`idx`=#{idx}
+    </select>
+
+    <select id="selectRecentArticle" resultType="ArticleDTO">
+        <include refid="selectAllArticle"></include>
+        order by `article`.`idx` desc limit 0,2;
+    </select>
+</mapper>

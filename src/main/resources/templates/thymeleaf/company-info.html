@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="thymeleaf/layout/layout">
+
+<div layout:fragment="content">
+  <div th:replace="thymeleaf/fragments/header :: navFragment(${categoryList})"></div>
+
+  <main role="main" class="container">
+    <div class="row">
+      준비 중입니다.
+    </div><!-- /.row -->
+
+  </main><!-- /.container -->
+</div>
+</html>

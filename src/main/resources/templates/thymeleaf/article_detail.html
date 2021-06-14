@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="thymeleaf/layout/layout">
+
+<div layout:fragment="content">
+    <div th:replace="thymeleaf/fragments/header :: navFragment(${categoryList})"></div>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header text-dark">
+                        <h5 th:text="${article.title}"></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-1 text-muted" th:text="|${article.writerName} / ${article.createdTime}|"></div>
+                        <div class="card-text" th:utext="${article.contents}"></div>
+                        <a th:if="${article.filePath} != null" th:href="@{/article/download/{id}(id=${article.idx})}" th:text="|첨부파일(${article.originalFileName})|"></a>
+                    </div>
+                    <img th:if="${article.image}" class="card-img-bottom" th:src="@{/{path}(path=${article.filePath})}">
+
+                </div>
+            </div>
+        </div>
+    </main><!-- /.container -->
+</div>
+</html>

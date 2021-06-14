@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="thymeleaf/layout/layout">
+
+<div layout:fragment="content">
+    <div th:replace="thymeleaf/fragments/header :: navFragment(${categoryList})"></div>
+    <main role="main" class="container">
+        <h3 th:text="${currentCategory.name}"></h3>
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>등록 시간</th>
+                    <th></th>
+                </tr>
+                <tr th:each="article : ${articleList}">
+                    <td th:text="${article.idx}"/>
+                    <td>
+                        <a th:text="${article.title}"
+                           th:href="@{/article/{id}(id=${article.idx})}"/>
+                    </td>
+                    <td th:text="${article.writerName}"/>
+                    <td th:text="${article.createdTime}"/>
+                    <td></td>
+                </tr>
+            </table>
+        </div> <!-- /.row -->
+        <a sec:authorize="isAuthenticated()"
+           th:href="@{/admin/article/{id}(id=${currentCategory.idx})}"
+           class="btn btn-primary">새 게시글</a>
+    </main><!-- /.container -->
+</div>
+</html>

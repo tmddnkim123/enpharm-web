@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="thymeleaf/layout/layout">
+
+<div layout:fragment="content">
+    <div th:replace="thymeleaf/fragments/header :: navFragment(${categoryList})"></div>
+    <main role="main" class="container">
+        <div class="row">
+            <a href="?field=idx&order=asc" class="btn text-dark">오름차순 (순번)</a>
+            <a href="?field=idx&order=desc" class="btn text-dark">내림차순 (순번)</a>
+            <a href="?field=name&order=asc" class="btn text-dark">오름차순 (이름)</a>
+            <a href="?field=email&order=asc" class="btn text-dark">오름차순 (이메일)</a>
+            <a href="?field=name&order=desc" class="btn text-dark">내림차순 (이름)</a>
+            <a href="?field=email&order=desc" class="btn text-dark">내림차순 (이메일)</a>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>문의 날짜</th>
+                    <th></th>
+                </tr>
+                <tr th:each="contact : ${contactList}">
+                    <td th:text="${contact.idx}"/>
+                    <td th:text="${contact.name}"/>
+                    <td th:text="${contact.email}"/>
+                    <td th:text="${contact.createdTime}"/>
+                    <td><a th:href="@{/admin/contact/{id}(id=${contact.idx})}">내용 보기</a></td>
+                </tr>
+            </table>
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+</div>
+</html>

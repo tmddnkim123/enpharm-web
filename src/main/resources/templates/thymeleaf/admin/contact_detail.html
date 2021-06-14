@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="thymeleaf/layout/layout">
+
+<div layout:fragment="content">
+    <div th:replace="thymeleaf/fragments/header :: navFragment(${categoryList})"></div>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header text-dark">
+                        <h5 th:text="${contact.name}"></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-1 text-muted" th:text="|${contact.email} / ${contact.createdTime}|"></div>
+                        <div class="card-text" th:utext="${contact.contents}"></div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+</div>
+</html>
